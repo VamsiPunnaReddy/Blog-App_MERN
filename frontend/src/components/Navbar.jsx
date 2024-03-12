@@ -1,6 +1,7 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import BlogCraftLogo from '../assets/BlogCraft-mainlogo.jpeg'
 
 export function Navbar() {
 
@@ -33,11 +34,11 @@ export function Navbar() {
 
   return (
     <>
-      <nav className=" bg-slate-200 fixed top-0 left-0 right-0">
-        <div className="py-5 px-4 sm:px-8 lg:px-12">
+      <nav className="fixed top-0 left-0 right-0 shadow-md">
+        <div className="py-4 px-4 sm:px-8 lg:px-12">
           <div className='flex justify-between'>
             <div className='flex items-center'>
-              <Link to='/' className='text-2xl font-bold '>BlogCraft.in</Link>
+              <Link to='/'> <img src={BlogCraftLogo} alt="" className=" h-11" /> </Link>
             </div>
             <div className="block md:hidden">
               {menuOpen ? (
