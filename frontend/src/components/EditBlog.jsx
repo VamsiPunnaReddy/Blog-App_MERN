@@ -43,7 +43,7 @@ export function EditBlog() {
       headers: {
         "Authorization": 'Bearer ' + token,
       }
-    })
+    })  
     console.log(res)
     if (res.ok) {
       navigate('/')
