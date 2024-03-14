@@ -21,15 +21,6 @@ export function Blogs({ blogs }) {
           {blogs.map((blog, index) => {
             return (
 
-              // <div onClick={() => HandleBlog(blog._id)} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-
-              //   <img src={'http://localhost:3000/' + blog.imagePath} alt="Blog-Image" className="" px-40/>
-              //   <h1> {blog.title} </h1>
-              //   <h3> {blog.description} </h3>
-              //   <p> {blog.content} </p>
-              //   <p className=" self-end"> - {blog.author} </p>
-
-              // </div>
               <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
 
                 <img onClick={() => HandleBlog(blog._id)} src={'http://localhost:3000/' + blog.imagePath} alt="Blog-Image" className="rounded-t-lg w-full h-60 bg-auto " />
