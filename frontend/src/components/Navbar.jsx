@@ -34,20 +34,20 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 shadow-md">
+      <nav className="fixed top-0 left-0 right-0 shadow-md bg-white">
         <div className="py-4 px-4 sm:px-8 lg:px-12">
           <div className='flex justify-between'>
             <div className='flex items-center'>
               <Link to='/'> <img src={BlogCraftLogo} alt="" className=" h-11" /> </Link>
             </div>
-            <div className="block md:hidden">
+            <div className="flex md:hidden items-center">
               {menuOpen ? (
                 <XMarkIcon className="block h-8 w-8" aria-hidden="true" onClick={toggleMenu} />
               ) : (
                 <Bars3Icon className="block h-8 w-8" aria-hidden="true" onClick={toggleMenu} />
               )}
             </div>
-            <div className={` md:relative md:flex md:flex-row md:justify-end md:gap-7 md:items-center md:pb-0 md:pr-0  text-black text-lg font-semibold   ${menuOpen ? 'flex flex-col items-end gap-4 absolute top-[100%] left-0 bg-slate-200 w-full pb-4 pr-4 sm:pr-8' : 'hidden'}`}>
+            <div className={` md:relative md:flex md:flex-row md:justify-end md:gap-7 md:items-center md:pb-0 md:pr-0  text-black text-lg font-semibold   ${menuOpen ? 'flex flex-col bg-white shadow-md items-end gap-4 absolute top-[100%] left-0 w-full pb-4 pr-4 sm:pr-8' : 'hidden'}`}>
 
               {isAuth ? (
                 <>

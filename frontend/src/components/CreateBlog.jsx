@@ -1,24 +1,27 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Editor } from './Editor'
+import 'react-quill/dist/quill.snow.css';
 
 export function CreateBlog() {
 
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
+  const [content, setContent] = useState('')
 
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
   async function CreateNewBlog(e) {
     e.preventDefault();
+
     const data = new FormData(e.target);
     const titleValue = data.get('title');
     const descriptionValue = data.get('description');
-    const contentValue = data.get('content');
     const imageFile = data.get('image');
 
     data.set('title', titleValue);
     data.set('description', descriptionValue);
-    data.set('content', contentValue);
+    data.set('content', content);
     data.set('image', imageFile);
 
 
@@ -44,27 +47,49 @@ export function CreateBlog() {
 
   return (
     <>
-      <section className="createBlog-section">
-        <div className="createBlog-container">
-          <h1 className="top">Create Blog</h1>
-          <form onSubmit={CreateNewBlog}>
-            <div className=" ">
-              <p></p>
-              <input className="" name='image' type="file" required />
-            </div>
-            <div className=" ">
-              <input className="" name='title' type="text" required placeholder="Title" />
-            </div>
-            <div className=" ">
-              <input className="" name='description' type="text" required placeholder="Descripion" />
-            </div>
-            <div className=" pass">
-              <input className="" name='content' type="text" required placeholder="Cotent" />
-            </div>
-            <input className="" type="submit" value="Login" />
-          </form>
+
+      <div className="container mx-auto px-6 py-8">
+        <div className="mx-auto w-full">
+          <div className="">
+            <form className="grid grid-cols-1 md:grid-cols-2 md:gap-x-20 gap-y-6 auto-rows-max px-4" onSubmit={CreateNewBlog}>
+
+              <div>
+                <label htmlFor="title" className="block tracking-wider text-lg font-medium leading-3 text-gray-900">Title</label>
+                <div className="mt-3">
+                  <input id="title" name="title" type="text" required className="block h-10 text-md w-full px-4 rounded-md border-0 py-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400   focus:ring-1 focus:ring-inset focus:ring-blue-700 " />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="description" className="block tracking-wider text-lg font-medium leading-3 text-gray-900">Description</label>
+                <div className="mt-3">
+                  <input id="description" name="description" type="text" required className="block text-md px-4 h-10 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  focus:ring-1 focus:ring-inset focus:ring-blue-700 " />
+                </div>
+              </div>
+
+
+              <div className='md:col-span-2 h-fit'>
+                <input id="imageFile" name='image' type="file" className="block w-full ring-1 ring-gray-400 rounded-md text-md text-slate-500
+                  file:mr-4 file:py-2 file:px-4
+                  file:rounded-md file:border-0
+                  file:text-md file:font-semibold
+                  file:bg-violet-100 file:text-blue-700
+                  hover:file:bg-violet-200
+                "/>
+              </div>
+
+              <Editor value={content} onChange={setContent} />
+
+              <div className='md:col-span-2 place-self-end'>
+                <button type="submit" className="flex rounded-md bg-blue-700 px-4 py-2 text-md font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700">Create Blog</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </section>
+
+      </div>
+
+
 
     </>
   )

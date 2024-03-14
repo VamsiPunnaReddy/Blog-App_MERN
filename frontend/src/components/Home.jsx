@@ -16,9 +16,7 @@ export function Home() {
 
   }, [])
 
-  async function HandleBlog(blogId) {
-    navigate('/blogs/' + blogId);
-  }
+  
 
 
   return (

@@ -6,7 +6,6 @@ export function MyBlogs() {
   const [blogs, setBlogs] = useState([])
 
   const token = localStorage.getItem('token')
-  const navigate = useNavigate()
 
   useEffect(() => {
     fetch('http://localhost:3000/blogs/myblogs', {
@@ -20,10 +19,6 @@ export function MyBlogs() {
       })
 
   }, [])
-
-  function HandleMyBlog(blogId) {
-    navigate('/blogs/' + blogId)
-  }
 
   return (
     <>
