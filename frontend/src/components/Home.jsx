@@ -21,7 +21,6 @@ export function Home() {
 
   return (
     <>
-      <h1 className=' font-bold text-5xl text-center mb-8 mt-4'>Recent Blogs</h1>
       <Blogs blogs={blogs} />
     </>
   )

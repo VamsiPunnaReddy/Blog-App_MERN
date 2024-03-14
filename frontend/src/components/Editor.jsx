@@ -22,7 +22,7 @@ export function Editor({ value, onChange }) {
         theme={'snow'}
         onChange={onChange}
         modules={modules}
-        className='h-72 mb-10' />
+        className='h-44 md:h-72 mb-16 sm:mb-10 md:mb-8' />
     </div>
   </>);
 }
