@@ -59,26 +59,7 @@ export function EditBlog() {
 
   return (
     <>
-      {/* <section className="editBlog-section">
-        <div className="editBlog-container">
-          <h1 className="top">Edit Blog</h1>
-          <form onSubmit={HandleEdit}>
-            <div className="">
-              <input className="" name='image' type="file" title='choose' />
-            </div>
-            <div className="">
-              <input className="" value={title} name='title' type="text" required onChange={(e) => setTitle(e.target.value)} />
-            </div>
-            <div className="">
-              <input className="" value={description} name='description' type="text" required onChange={(e) => setDescription(e.target.value)} />
-            </div>
-            <div className="">
-              <input className="" value={content} name='content' type="text" required onChange={(e) => setContent(e.target.value)} />
-            </div>
-            <input className="" type="submit" value="Edit" />
-          </form>
-        </div>
-      </section> */}
+
 
       <div className="container mx-auto px-4 py-4 md:px-8 lg:px-12 xl:px-16">
         <div className="mx-auto w-full">
@@ -101,7 +82,7 @@ export function EditBlog() {
 
 
               <div className='col-span-2'>
-                <input id="imageFile" name='image' type="file" className="block w-full ring-1 ring-gray-400 rounded-md text-sm md:text-md text-slate-500
+                <input id="imageFile" name='image' type="file" required className="block w-full ring-1 ring-gray-400 rounded-md text-sm md:text-md text-slate-500
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-md file:border-0
                   file:text-md file:font-semibold

@@ -69,7 +69,7 @@ export function CreateBlog() {
 
 
               <div className='col-span-2'>
-                <input id="imageFile" name='image' type="file" className="block w-full ring-1 ring-gray-400 rounded-md text-sm md:text-md text-slate-500
+                <input id="imageFile" name='image' type="file" required className="block w-full ring-1 ring-gray-400 rounded-md text-sm md:text-md text-slate-500
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-md file:border-0
                   file:text-md file:font-semibold
@@ -78,7 +78,7 @@ export function CreateBlog() {
                 "/>
               </div>
 
-              <Editor value={content} onChange={setContent} />
+              <Editor value={content} onChange={setContent} required />
 
 
               <div className='col-span-2 place-self-end'>

@@ -15,6 +15,8 @@ export function Editor({ value, onChange }) {
       ['clean'],
     ],
   };
+
+  
   return (<>
     <div className="col-span-2">
       <ReactQuill

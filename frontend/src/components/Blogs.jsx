@@ -17,21 +17,30 @@ export function Blogs({ blogs }) {
 
 
 
-        <div key='blog' value='blogs' className=" container grid place-items-center grid-cols-1 md:grid-cols-2  gap-16 mx-auto px-4 py-6 sm:py-8 xl:px-40">
+        <div key='blog' value='blogs' className="container mx-auto grid place-items-center grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-x-28 lg:gap-y-16 px-4 py-6 sm:py-8 lg:max-w-fit lg:py-20 2xl:grid-cols-3 2xl:gap-x-16">
           {blogs.map((blog, index) => {
             return (
 
-              <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+              <div className=" w-96   bg-white border border-gray-200 rounded-lg shadow hover:scale-110 transition-all duration-500">
 
-                <img onClick={() => HandleBlog(blog._id)} src={'http://localhost:3000/' + blog.imagePath} alt="Blog-Image" className="rounded-t-lg w-full h-60 bg-auto " />
+                <img onClick={() => HandleBlog(blog._id)} src={'http://localhost:3000/' + blog.imagePath} alt="Blog-Image" className="cursor-pointer rounded-t-lg aspect-video w-full object-cover" />
 
                 <div className="p-5">
-                  <h5 className="mb-2 text-xl  font-semibold tracking-tight text-gray-900 line-clamp-1 pr-8">{blog.title} dfsdfs dfdfsfs  df sdfsdf sdfsdf</h5>
+                  <h5 className="mb-2 lg:mb-3 text-xl  font-semibold tracking-tight text-gray-900 line-clamp-1 pr-8">{blog.title}</h5>
 
-                  <p className="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400 line-clamp-3">{blog.description} sg sg gasg sddgasdjdfkhm sdfh;dlmh;djhmpsdh ojkdfhksdlkhsdnmh klngklfndgkl;ng ggplmkfgkl;dnmfgklng dfgkl;mndfgklndflkg gklmfgkn</p>
+                  <p className="mb-3 lg:mb-4 text-sm font-normal text-gray-500 line-clamp-3">{blog.description}</p>
 
-                  <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between mb-3">
-                    <p className="text-base font-medium">{new Date(blog.date).toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+                  <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between mb-3 lg:mb-4">
+                    <p title={`${new Date(blog.date).toLocaleDateString("en-US", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    })}, ${new Date(blog.date).toLocaleTimeString("en-US", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                      timeZone: "Asia/Kolkata",
+                    })}, Published date`} className="text-sm font-semibold">{new Date(blog.date).toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                     <button onClick={() => HandleBlog(blog._id)} className="flex w-fit items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none bg-blue-600 hover:bg-blue-700 focus:ring-blue-800">
                       Read more
                       <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -40,7 +49,7 @@ export function Blogs({ blogs }) {
                     </button>
                   </div>
 
-                  <p className="text-sm flex justify-end font-semibold"> - {blog.author} </p>
+                  <p className="text-sm flex justify-end font-medium italic text-gray-800"> - {blog.author} </p>
                 </div>
               </div>
 
