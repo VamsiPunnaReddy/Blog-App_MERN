@@ -53,6 +53,8 @@ export function CreateBlog() {
           <div className="">
             <form className="grid grid-cols-2 md:gap-x-12 lg:gap-x-16 xl:gap-x-20 gap-y-4 md:gap-y-6 auto-rows-max px-4 " onSubmit={CreateNewBlog}>
 
+
+
               <div className='col-span-2 md:col-span-1'>
                 <label htmlFor="title" className="block tracking-wider text-sm sm:text-md md:text-lg font-medium leading-3 text-gray-900">Title</label>
                 <div className="mt-2 md:mt-3">

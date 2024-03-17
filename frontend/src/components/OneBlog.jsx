@@ -61,7 +61,7 @@ export function OneBlog() {
         <img className=" w-full h-80 object-cover " src={'http://localhost:3000/' + blog.imagePath} alt="Blog-Image" />
         <h1 className="mt-2 text-lg font-semibold sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"> {blog.title} </h1>
         <p className="mt-2 text-gray-600 mb-6 text-sm sm:text-base " > {blog.description} </p>
-        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+        <div className="prose min-w-full prose-li:marker:text-black prose-headings:m-0" dangerouslySetInnerHTML={{ __html: blog.content }} />
 
         <div className="flex flex-col gap-2  sm:flex-row sm:justify-between mt-6">
           <p title={`${new Date(blog.date).toLocaleDateString("en-US", {

@@ -34,7 +34,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 shadow-md bg-white">
+      <nav className="fixed top-0 left-0 right-0 shadow-md bg-white z-50">
         <div className="py-4 px-4 sm:px-8 lg:px-12">
           <div className='flex justify-between'>
             <div className='flex items-center'>

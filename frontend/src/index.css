@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   h3 {
     @apply text-2xl font-medium;
 
@@ -22,7 +22,7 @@
     @apply list-disc pl-8
   }
 
-}
+} */
 
 * {
   margin: 0;

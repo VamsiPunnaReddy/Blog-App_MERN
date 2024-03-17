@@ -21,7 +21,7 @@ export function Blogs({ blogs }) {
           {blogs.map((blog, index) => {
             return (
 
-              <div className=" w-96   bg-white border border-gray-200 rounded-lg shadow hover:scale-110 transition-all duration-500">
+              <div className=" w-96 bg-white border border-gray-200 rounded-lg shadow hover:scale-110 transition-all duration-500">
 
                 <img onClick={() => HandleBlog(blog._id)} src={'http://localhost:3000/' + blog.imagePath} alt="Blog-Image" className="cursor-pointer rounded-t-lg aspect-video w-full object-cover" />
 
