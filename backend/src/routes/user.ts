@@ -43,7 +43,7 @@ userRouter.post("/signin", async (req, res) => {
     }
     const { username, password }: signin = req.body
     try {
-        const userExists = await User.findOne({ $or: [{ username }, { email: username }] })
+        const userExists = await User.findOne({ $or: [{ username: username }, { email: username }] })
         if (!userExists) {
             return res.status(401).json({ message: "No user found with this email or username" })
         }
