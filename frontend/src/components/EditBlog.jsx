@@ -4,6 +4,7 @@ import { Editor } from "./Editor";
 import "react-quill/dist/quill.snow.css";
 
 export function EditBlog() {
+  console.log(backendurl)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");

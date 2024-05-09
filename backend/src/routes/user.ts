@@ -13,13 +13,13 @@ userRouter.post("/signup", async (req, res) => {
     const { fullName, username, email, password } = req.body
     const { success } = signupInput.safeParse(req.body)
     if (!success) {
-        res.status(404).json({ msg: "Invalid Inputs" })
+        res.status(404).json({ message: "Invalid Inputs" })
     }
 
     try {
         const userExists = await User.findOne({ username, email })
         if (userExists) {
-            res.json({ msg: "Username or Email Already Exists" })
+            res.json({ message: "Username or Email Already Exists" })
         }
         await User.create({
             fullName,
@@ -27,7 +27,7 @@ userRouter.post("/signup", async (req, res) => {
             email,
             password: hashSync(password, salt)
         });
-        res.json({ msg: "User signed up successfully" })
+        res.json({ message: "User signed up successfully" })
 
     } catch (e) {
         console.error(e);
@@ -39,17 +39,17 @@ userRouter.post("/signin", async (req, res) => {
     const { username, password } = req.body
     const { success } = signinInput.safeParse(req.body)
     if (!success) {
-        res.status(404).json({ msg: "Invalid Inputs" })
+        res.status(404).json({ message: "Invalid Inputs" })
     }
     try {
         const userExists = await User.findOne({ $or: [{ username: username }, { email: username }] })
         if (!userExists) {
-            res.status(401).json({ msg: "No user found with this email or username" })
+            res.status(401).json({ message: "No user found with this email or username" })
         }
         else {
             const isUserPass = compareSync(password, String(userExists.password))
             if (!isUserPass) {
-                res.status(401).json({ msg: "Username or password incorrect" })
+                res.status(401).json({ message: "Username or password incorrect" })
             }
             const token = jwt.sign({ username }, jwtSecretKey)
             res.status(200).json({ token, username: userExists.username })

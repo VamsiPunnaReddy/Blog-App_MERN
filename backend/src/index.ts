@@ -1,5 +1,5 @@
 import express from "express"
-import "dotenv"
+import "dotenv/config"
 import cors from "cors"
 import { userRouter } from "./routes/user";
 import { blogRouter } from "./routes/blog";
