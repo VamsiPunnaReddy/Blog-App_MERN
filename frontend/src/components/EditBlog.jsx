@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Editor } from "./Editor";
 import "react-quill/dist/quill.snow.css";
 import { BACKEND_URL } from "./Home";
+import axios from "axios";
 
 export function EditBlog() {
-  console.log(backendurl)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
@@ -16,12 +16,12 @@ export function EditBlog() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/api/v1/blogs/" + id, {
+    axios.get(BACKEND_URL + "/api/v1/blogs/" + id, {
       headers: {
         Authorization: "Bearer " + token,
       },
     }).then(async (e) => {
-      const res = await e.json();
+      const res = e.data;
       setTitle(res.title);
       setDescription(res.description);
       setContent(res.content);
@@ -38,8 +38,7 @@ export function EditBlog() {
     data.set("content", content);
     data.set("image", imageFile);
 
-    const res = await fetch(BACKEND_URL + "/api/v1/blogs/" + id, {
-      method: "PUT",
+    const res = await axios.put(BACKEND_URL + "/api/v1/blogs/" + id, {
       body: data,
       headers: {
         Authorization: "Bearer " + token,

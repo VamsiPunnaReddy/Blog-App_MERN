@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { BACKEND_URL } from "./Home"
+import axios from "axios"
 
 export function OneBlog() {
   const [blog, setBlog] = useState({})
@@ -13,13 +14,13 @@ export function OneBlog() {
   const username = localStorage.getItem('author')
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/api/v1/blogs/" + id, {
+    axios.get(BACKEND_URL + "/api/v1/blogs/" + id, {
       headers: {
         "Authorization": 'Bearer ' + token,
       }
     })
       .then(async (e) => {
-        const res = await e.json()
+        const res = e.data
         if (res.author == username) {
           setIsUser(true)
         }
@@ -34,8 +35,7 @@ export function OneBlog() {
 
   async function HandleDelete(blogId) {
 
-    const res = await fetch(BACKEND_URL + "/blogs/" + blogId, {
-      method: 'DELETE',
+    const res = await axios.delete(BACKEND_URL + "/blogs/" + blogId, {
       headers: {
         "Authorization": 'Bearer ' + token,
       }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Blogs } from './Blogs'
+import axios from 'axios'
 
 export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
@@ -8,9 +9,9 @@ export function Home() {
 
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/api/v1/blogs")
+    axios.get(BACKEND_URL + "/api/v1/blogs")
       .then(async (e) => {
-        const res = await e.json()
+        const res = e.data
         setBlogs(res.blogs)
       })
 

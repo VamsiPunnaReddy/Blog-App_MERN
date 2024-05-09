@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Blogs } from './Blogs'
 import { BACKEND_URL } from './Home'
+import axios from 'axios'
 
 export function MyBlogs() {
   const [blogs, setBlogs] = useState([])
@@ -9,13 +10,13 @@ export function MyBlogs() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/api/v1/blogs/myblogs", {
+    axios.get(BACKEND_URL + "/api/v1/blogs/myblogs", {
       headers: {
         "Authorization": 'Bearer ' + token,
       }
     })
       .then(async (e) => {
-        const res = await e.json()
+        const res = e.data
         setBlogs(res.userBlogPosts)
       })
 

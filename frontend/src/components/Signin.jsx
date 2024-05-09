@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from './Home';
+import axios from 'axios';
 
 export function Signin() {
   const [redirect, setRedirect] = useState(false)
@@ -15,12 +16,11 @@ export function Signin() {
 
     data.set('username', username);
     data.set('password', password);
-    const res = await fetch(BACKEND_URL + "/api/v1/user/signin", {
-      method: 'POST',
-      body: JSON.stringify({
+    const res = await axios.post(BACKEND_URL + "/api/v1/user/signin", {
+      body: {
         username,
         password,
-      }),
+      },
       headers: {
         "Content-type": "application/json"
       }

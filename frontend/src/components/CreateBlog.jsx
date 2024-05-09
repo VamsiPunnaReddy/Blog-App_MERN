@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Editor } from "./Editor";
 import "react-quill/dist/quill.snow.css";
 import { BACKEND_URL } from "./Home";
+import axios from "axios";
 
 export function CreateBlog() {
     const [redirect, setRedirect] = useState(false);
@@ -24,8 +25,7 @@ export function CreateBlog() {
         data.set("content", content);
         data.set("image", imageFile);
 
-        const res = await fetch(BACKEND_URL + "/api/v1/blogs/create", {
-            method: "POST",
+        const res = await axios.post(BACKEND_URL + "/api/v1/blogs/create", {
             body: data,
             headers: {
                 Authorization: "Bearer " + token,
