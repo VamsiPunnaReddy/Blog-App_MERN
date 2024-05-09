@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/v1/user", userRouter)
-app.use("/api/v1/blog", blogRouter)
+app.use("/api/v1/blogs", blogRouter)
 
 app.get("/", (req, res) => {
     res.status(200).json({ hello: "World!" })
