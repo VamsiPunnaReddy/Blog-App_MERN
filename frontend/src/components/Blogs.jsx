@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "./Home";
 
 export function Blogs({ blogs }) {
   const navigate = useNavigate();

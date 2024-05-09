@@ -4,19 +4,20 @@ import { User } from "../model/db";
 import { compareSync, genSaltSync, hashSync } from "bcrypt"
 import 'dotenv/config'
 import jwt from "jsonwebtoken";
+import { signin, signup } from "../types/types";
 
 export const userRouter = Router()
 const salt = genSaltSync(10)
 const jwtSecretKey: string = String(process.env.JWT_SECRET)
 
 userRouter.post("/signup", async (req, res) => {
-    const { fullName, username, email, password } = req.body
+    const { success } = signupInput.safeParse(req.body)
+    if (!success) {
+        return res.status(404).json({ message: "Invalid Inputs" })
+    }
+    const { fullName, username, email, password }: signup = req.body
 
     try {
-        const { success } = signupInput.safeParse(req.body)
-        if (!success) {
-            return res.status(402).json({ message: "Invalid Inputs" })
-        }
         const userExists = await User.findOne({ username, email })
         if (userExists) {
             return res.json({ message: "Username or Email Already Exists" })
@@ -36,13 +37,13 @@ userRouter.post("/signup", async (req, res) => {
 })
 
 userRouter.post("/signin", async (req, res) => {
-    const { username, password } = req.body
     const { success } = signinInput.safeParse(req.body)
     if (!success) {
         return res.status(404).json({ message: "Invalid Inputs" })
     }
+    const { username, password }: signin = req.body
     try {
-        const userExists = await User.findOne({ $or: [{ username: username }, { email: username }] })
+        const userExists = await User.findOne({ $or: [{ username }, { email: username }] })
         if (!userExists) {
             return res.status(401).json({ message: "No user found with this email or username" })
         }

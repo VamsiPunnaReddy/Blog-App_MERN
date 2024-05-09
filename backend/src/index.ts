@@ -2,13 +2,12 @@ import express from "express"
 import cors from "cors"
 import { userRouter } from "./routes/user";
 import { blogRouter } from "./routes/blog";
-import bodyParser from "body-parser";
 
 const PORT = 3000;
 const app = express()
 
-app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
+app.use(express.json())
 
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/blogs", blogRouter)

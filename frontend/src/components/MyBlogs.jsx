@@ -9,7 +9,7 @@ export function MyBlogs() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/blogs/myblogs", {
+    fetch(BACKEND_URL + "/api/v1/blogs/myblogs", {
       headers: {
         "Authorization": 'Bearer ' + token,
       }

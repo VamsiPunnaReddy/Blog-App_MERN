@@ -15,7 +15,7 @@ export function Signin() {
 
     data.set('username', username);
     data.set('password', password);
-    const res = await fetch(BACKEND_URL + "/user/signin", {
+    const res = await fetch(BACKEND_URL + "/api/v1/user/signin", {
       method: 'POST',
       body: JSON.stringify({
         username,

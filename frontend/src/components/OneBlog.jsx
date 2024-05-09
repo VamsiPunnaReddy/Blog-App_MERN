@@ -13,7 +13,7 @@ export function OneBlog() {
   const username = localStorage.getItem('author')
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/blogs/" + id, {
+    fetch(BACKEND_URL + "/api/v1/blogs/" + id, {
       headers: {
         "Authorization": 'Bearer ' + token,
       }
@@ -23,8 +23,9 @@ export function OneBlog() {
         if (res.author == username) {
           setIsUser(true)
         }
-        setBlog(res)
+        setBlog(res.blog)
       })
+
   }, [])
 
   async function HandleEdit(blogId) {
@@ -48,8 +49,17 @@ export function OneBlog() {
     }
   }
 
+  if (blog == "") {
+    return (
+      <div>
+        loading..
+      </div>
+    )
+  }
+
   return (
     <>
+      {console.log("blog:", blog)}
       <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-28 py-10">
 
         {isUser ? (

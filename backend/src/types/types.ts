@@ -1,6 +1,18 @@
 import { Request } from "express";
 import { JwtPayload } from "jsonwebtoken";
 
+export type signup = {
+    fullName: string,
+    username: string,
+    email: string,
+    password: string
+}
+
+export type signin = {
+    username: string,
+    password: string
+}
+
 export type blog = {
     title: string,
     description: string,

@@ -18,7 +18,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-blogRouter.post("/create", authMiddleware, upload.single('file'), async (req, res) => {
+blogRouter.post("/create", authMiddleware, upload.single('file'), async (req: CustomRequest, res) => {
     const body = req.body
     const mimeType = req.file?.mimetype;
     const base64String = req.file?.buffer.toString('base64');
@@ -40,7 +40,7 @@ blogRouter.post("/create", authMiddleware, upload.single('file'), async (req, re
                 name: result.public_id,
                 url: result.secure_url
             },
-            author: req.body.username,
+            author: req.username,
         })
     } catch (e) {
         console.error(e);

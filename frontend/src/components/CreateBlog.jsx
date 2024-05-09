@@ -24,7 +24,7 @@ export function CreateBlog() {
         data.set("content", content);
         data.set("image", imageFile);
 
-        const res = await fetch(BACKEND_URL + "/blogs/create", {
+        const res = await fetch(BACKEND_URL + "/api/v1/blogs/create", {
             method: "POST",
             body: data,
             headers: {

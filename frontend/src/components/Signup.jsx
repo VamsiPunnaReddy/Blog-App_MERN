@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { BACKEND_URL } from "./Home";
+import axios from "axios";
 
 export function Signup() {
 
@@ -17,15 +18,13 @@ export function Signup() {
     data.set('email', email);
     data.set('password', password);
 
-    const res = await fetch(BACKEND_URL + "/user/signup", {
-      method: 'POST',
-      body: JSON.stringify({
-        fullName,
-        username,
-        email,
-        password,
-      })
+    console.log(fullName, username, email, password)
 
+    const res = await axios.post(BACKEND_URL + "/api/v1/user/signup", {
+      fullName,
+      username,
+      email,
+      password
     })
     if (res.status === 200) {
       alert('Signed up successfully');
@@ -46,9 +45,9 @@ export function Signup() {
           <div className="mt-10 mx-auto w-full max-w-sm">
             <form className="space-y-6" onSubmit={HandleSignInForm}>
               <div>
-                <label for="fullname" className="block tracking-wide text-sm font-medium leading-none text-gray-900">Full Name</label>
+                <label for="fullName" className="block tracking-wide text-sm font-medium leading-none text-gray-900">Full Name</label>
                 <div className="mt-2">
-                  <input id="fullname" name="fullname" type="text" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-blue-700 " />
+                  <input id="fullName" name="fullName" type="text" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-blue-700 " />
                 </div>
               </div>
 

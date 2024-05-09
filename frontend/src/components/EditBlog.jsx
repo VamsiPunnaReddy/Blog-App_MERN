@@ -16,7 +16,7 @@ export function EditBlog() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch(BACKEND_URL + "/blogs/" + id, {
+    fetch(BACKEND_URL + "/api/v1/blogs/" + id, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -38,7 +38,7 @@ export function EditBlog() {
     data.set("content", content);
     data.set("image", imageFile);
 
-    const res = await fetch(BACKEND_URL + "/blogs/" + id, {
+    const res = await fetch(BACKEND_URL + "/api/v1/blogs/" + id, {
       method: "PUT",
       body: data,
       headers: {
