@@ -4,26 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base {
-  h3 {
-    @apply text-2xl font-medium;
-
-  }
-
-  h4 {
-    @apply text-base;
-  }
-
-  ol {
-    @apply list-decimal pl-8
-  }
-
-  ul {
-    @apply list-disc pl-8
-  }
-
-} */
-
 * {
   margin: 0;
   padding: 0;
