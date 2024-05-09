@@ -17,16 +17,11 @@ export function Signin() {
     data.set('username', username);
     data.set('password', password);
     const res = await axios.post(BACKEND_URL + "/api/v1/user/signin", {
-      body: {
-        username,
-        password,
-      },
-      headers: {
-        "Content-type": "application/json"
-      }
+      username,
+      password,
     })
     if (res.ok) {
-      const response = await res.json()
+      const response = res.data
       localStorage.setItem('token', response.token);
       localStorage.setItem('author', response.username);
       setRedirect(true)
