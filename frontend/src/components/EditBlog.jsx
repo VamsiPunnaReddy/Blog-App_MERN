@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Editor } from "./Editor";
 import "react-quill/dist/quill.snow.css";
+import { BACKEND_URL } from "./Home";
 
 export function EditBlog() {
   console.log(backendurl)
@@ -15,7 +16,7 @@ export function EditBlog() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://localhost:3000/blogs/" + id, {
+    fetch(BACKEND_URL + "/blogs/" + id, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -37,7 +38,7 @@ export function EditBlog() {
     data.set("content", content);
     data.set("image", imageFile);
 
-    const res = await fetch("http://localhost:3000/blogs/" + id, {
+    const res = await fetch(BACKEND_URL + "/blogs/" + id, {
       method: "PUT",
       body: data,
       headers: {

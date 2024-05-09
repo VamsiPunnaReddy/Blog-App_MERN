@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Blogs } from './Blogs'
+import { BACKEND_URL } from './Home'
 
 export function MyBlogs() {
   const [blogs, setBlogs] = useState([])
@@ -8,7 +9,7 @@ export function MyBlogs() {
   const token = localStorage.getItem('token')
 
   useEffect(() => {
-    fetch('http://localhost:3000/blogs/myblogs', {
+    fetch(BACKEND_URL + "/blogs/myblogs", {
       headers: {
         "Authorization": 'Bearer ' + token,
       }

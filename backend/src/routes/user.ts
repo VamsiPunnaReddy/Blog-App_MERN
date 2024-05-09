@@ -11,15 +11,15 @@ const jwtSecretKey: string = String(process.env.JWT_SECRET)
 
 userRouter.post("/signup", async (req, res) => {
     const { fullName, username, email, password } = req.body
-    const { success } = signupInput.safeParse(req.body)
-    if (!success) {
-        res.status(404).json({ message: "Invalid Inputs" })
-    }
 
     try {
+        const { success } = signupInput.safeParse(req.body)
+        if (!success) {
+            return res.status(402).json({ message: "Invalid Inputs" })
+        }
         const userExists = await User.findOne({ username, email })
         if (userExists) {
-            res.json({ message: "Username or Email Already Exists" })
+            return res.json({ message: "Username or Email Already Exists" })
         }
         await User.create({
             fullName,
@@ -27,11 +27,11 @@ userRouter.post("/signup", async (req, res) => {
             email,
             password: hashSync(password, salt)
         });
-        res.json({ message: "User signed up successfully" })
+        return res.json({ message: "User signed up successfully" })
 
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: "Internal server error" })
+        return res.status(500).json({ message: "Internal server error" })
     }
 })
 
@@ -39,25 +39,25 @@ userRouter.post("/signin", async (req, res) => {
     const { username, password } = req.body
     const { success } = signinInput.safeParse(req.body)
     if (!success) {
-        res.status(404).json({ message: "Invalid Inputs" })
+        return res.status(404).json({ message: "Invalid Inputs" })
     }
     try {
         const userExists = await User.findOne({ $or: [{ username: username }, { email: username }] })
         if (!userExists) {
-            res.status(401).json({ message: "No user found with this email or username" })
+            return res.status(401).json({ message: "No user found with this email or username" })
         }
         else {
             const isUserPass = compareSync(password, String(userExists.password))
             if (!isUserPass) {
-                res.status(401).json({ message: "Username or password incorrect" })
+                return res.status(401).json({ message: "Username or password incorrect" })
             }
             const token = jwt.sign({ username }, jwtSecretKey)
-            res.status(200).json({ token, username: userExists.username })
+            return res.status(200).json({ token, username: userExists.username })
         }
 
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: "Internal server error" })
+        return res.status(500).json({ message: "Internal server error" })
     }
 
 })

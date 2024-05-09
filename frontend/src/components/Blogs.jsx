@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "./Home";
 
 export function Blogs({ blogs }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export function Blogs({ blogs }) {
               <div className=" w-96 bg-white border border-gray-200 rounded-lg shadow hover:scale-110 transition-all duration-500">
                 <img
                   onClick={() => HandleBlog(blog._id)}
-                  src={"http://localhost:3000/" + blog.imagePath}
+                  src={blog.image.url}
                   alt="Blog-Image"
                   className="cursor-pointer rounded-t-lg aspect-video w-full object-cover"
                 />

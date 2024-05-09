@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
+import { BACKEND_URL } from './Home';
 
 export function Signin() {
   const [redirect, setRedirect] = useState(false)
@@ -14,7 +15,7 @@ export function Signin() {
 
     data.set('username', username);
     data.set('password', password);
-    const res = await fetch('http://localhost:3000/user/signin', {
+    const res = await fetch(BACKEND_URL + "/user/signin", {
       method: 'POST',
       body: JSON.stringify({
         username,

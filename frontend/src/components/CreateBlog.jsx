@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Editor } from "./Editor";
 import "react-quill/dist/quill.snow.css";
+import { BACKEND_URL } from "./Home";
 
 export function CreateBlog() {
     const [redirect, setRedirect] = useState(false);
@@ -23,7 +24,7 @@ export function CreateBlog() {
         data.set("content", content);
         data.set("image", imageFile);
 
-        const res = await fetch("http://localhost:3000/blogs/create", {
+        const res = await fetch(BACKEND_URL + "/blogs/create", {
             method: "POST",
             body: data,
             headers: {

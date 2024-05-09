@@ -2,12 +2,13 @@ import express from "express"
 import cors from "cors"
 import { userRouter } from "./routes/user";
 import { blogRouter } from "./routes/blog";
+import bodyParser from "body-parser";
 
 const PORT = 3000;
 const app = express()
 
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
-app.use(express.json());
 
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1/blogs", blogRouter)
@@ -18,4 +19,8 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server Running on : http://localhost:${PORT}`);
+});
+
+app.all('*', (req, res) => {
+    res.status(404).json({ message: "Route Not Found" });
 });

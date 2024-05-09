@@ -5,10 +5,12 @@ import 'dotenv/config'
 import { Blog } from "../model/db";
 import { authMiddleware } from "../middlewares/auth";
 import { CustomRequest, blog } from "../types/types";
+import multer from "multer"
 
 export const blogRouter = Router();
 
-
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -16,18 +18,18 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-
-
-blogRouter.post("/create", authMiddleware, async (req, res) => {
-    const body: blog = req.body
-    const file = body.file
+blogRouter.post("/create", authMiddleware, upload.single('file'), async (req, res) => {
+    const body = req.body
+    const mimeType = req.file?.mimetype;
+    const base64String = req.file?.buffer.toString('base64');
+    const dataUrl = `data:${mimeType};base64,${base64String}`;
     const { success } = createBlogInput.safeParse(body)
     if (!success) {
-        res.status(411).json({ message: "Invalid Inputs" })
+        return res.status(411).json({ message: "Invalid Inputs" })
     }
 
     try {
-        const result = await cloudinary.uploader.upload(file.name, {
+        const result = await cloudinary.uploader.upload(dataUrl, {
             folder: 'mernBlogCraft'
         })
         await Blog.create({
@@ -42,14 +44,14 @@ blogRouter.post("/create", authMiddleware, async (req, res) => {
         })
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 
 })
 
 blogRouter.get("/", async (req, res) => {
     const blogs = await Blog.find({})
-    res.json({ blogs })
+    return res.json({ blogs })
 })
 
 blogRouter.get("/myblogs", authMiddleware, async (req: CustomRequest, res) => {
@@ -57,10 +59,10 @@ blogRouter.get("/myblogs", authMiddleware, async (req: CustomRequest, res) => {
 
     try {
         const userBlogs = await Blog.find({ author: username })
-        res.status(200).json({ userBlogs })
+        return res.status(200).json({ userBlogs })
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 })
 
@@ -69,26 +71,29 @@ blogRouter.get("/:id", async (req, res) => {
 
     try {
         const blog = await Blog.findById({ _id: blogId })
-        res.status(200).json({ blog })
+        return res.status(200).json({ blog })
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 })
 
-blogRouter.put("/:id", authMiddleware, async (req: CustomRequest, res) => {
+blogRouter.put("/:id", authMiddleware, upload.single('file'), async (req: CustomRequest, res) => {
     const blogId = req.params.id
     const username = req.username
     const body: blog = req.body
-    const file = body.file
+    const mimeType = req.file?.mimetype;
+    const base64String = req.file?.buffer.toString('base64');
+    const dataUrl = `data:${mimeType};base64,${base64String}`;
 
     const { success } = updateBlogInput.safeParse(body)
     if (!success) {
-        res.status(411).json({ message: "Invalid Inputs" })
+        return res.status(411).json({ message: "Invalid Inputs" })
     }
 
     try {
-        const result = await cloudinary.uploader.upload(file.name, {
+
+        const result = await cloudinary.uploader.upload(dataUrl, {
             folder: 'mernBlogCraft'
         })
         const previousBlog = await Blog.findByIdAndUpdate(
@@ -107,19 +112,21 @@ blogRouter.put("/:id", authMiddleware, async (req: CustomRequest, res) => {
             },
             { new: false })
         if (!previousBlog) {
-            res.status(400).json({ message: "Cannot access it" });
+            return res.status(400).json({ message: "Cannot access it" });
         } else {
             try {
                 await cloudinary.api.delete_resources([previousBlog.image?.name || ''])
-                res.status(200).json({ message: "Blog Updated successfully" });
+                return res.status(200).json({ message: "Blog Updated successfully" });
             } catch (error) {
                 console.error(error);
-                res.status(500).json({ message: "Internal Server Error" });
+                return res.status(500).json({ message: "Internal Server Error" });
             }
         }
+
+
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 })
 
@@ -133,18 +140,18 @@ blogRouter.delete("/:id", authMiddleware, async (req: CustomRequest, res) => {
         });
 
         if (!deletedBlog) {
-            res.status(400).json({ message: "Cannot access it" });
+            return res.status(400).json({ message: "Cannot access it" });
         } else {
             try {
                 await cloudinary.api.delete_resources([deletedBlog.image?.name || ''])
-                res.status(200).json({ message: "Blog Updated successfully" });
+                return res.status(200).json({ message: "Blog Updated successfully" });
             } catch (e) {
                 console.error(e);
-                res.status(500).json({ message: "Internal Server Error" });
+                return res.status(500).json({ message: "Internal Server Error" });
             }
         }
     } catch (e) {
         console.error(e);
-        res.status(500).json({ message: "Internal Server Error" });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 })

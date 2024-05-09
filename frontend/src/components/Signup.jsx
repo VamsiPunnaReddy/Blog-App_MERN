@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "./Home";
 
 export function Signup() {
 
@@ -16,17 +17,14 @@ export function Signup() {
     data.set('email', email);
     data.set('password', password);
 
-    const res = await fetch('http://localhost:3000/user/signup', {
+    const res = await fetch(BACKEND_URL + "/user/signup", {
       method: 'POST',
       body: JSON.stringify({
         fullName,
         username,
         email,
         password,
-      }),
-      headers: {
-        "Content-type": "application/json"
-      }
+      })
 
     })
     if (res.status === 200) {

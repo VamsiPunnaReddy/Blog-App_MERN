@@ -1,29 +1,30 @@
 import jwt from "jsonwebtoken";
 import 'dotenv/config'
-import { NextFunction, Response } from "express";
+import { Request, NextFunction, Response } from "express";
 import { CustomRequest, DecodedToken } from "../types/types";
 
-const jwtSecretKey: string = String(process.env.JWT_SECRETKEY)
+const jwtSecretKey = process.env.JWT_SECRET || ""
 
 
-export async function authMiddleware(req: CustomRequest, res: Response, next: NextFunction) {
+export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     try {
         const token = req.header('Authorization')?.split(' ')[1];
 
         if (!token) {
+            console.log("no token")
             throw new Error();
         }
 
         const verified = jwt.verify(token, jwtSecretKey) as DecodedToken
         if (verified) {
-            req.username = verified.username
+            (req as CustomRequest).username = verified.username
             next();
         }
         else
-            res.status(401).json({ msg: "User does not exist" })
+            return res.status(401).json({ message: "User does not exist" })
 
     } catch (e) {
         console.error(e);
-        res.status(401).json({ msg: "" });
+        return res.status(401).json({ message: "Internal Server Error" });
     }
 }

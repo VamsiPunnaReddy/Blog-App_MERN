@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { BACKEND_URL } from "./Home"
 
 export function OneBlog() {
   const [blog, setBlog] = useState({})
@@ -12,7 +13,7 @@ export function OneBlog() {
   const username = localStorage.getItem('author')
 
   useEffect(() => {
-    fetch('http://localhost:3000/blogs/' + id, {
+    fetch(BACKEND_URL + "/blogs/" + id, {
       headers: {
         "Authorization": 'Bearer ' + token,
       }
@@ -32,7 +33,7 @@ export function OneBlog() {
 
   async function HandleDelete(blogId) {
 
-    const res = await fetch('http://localhost:3000/blogs/' + blogId, {
+    const res = await fetch(BACKEND_URL + "/blogs/" + blogId, {
       method: 'DELETE',
       headers: {
         "Authorization": 'Bearer ' + token,
@@ -58,7 +59,7 @@ export function OneBlog() {
           </div>
         ) : <></>}
 
-        <img className=" w-full h-80 object-cover " src={'http://localhost:3000/' + blog.imagePath} alt="Blog-Image" />
+        <img className=" w-full h-80 object-cover " src={blog.image.url} alt="Blog-Image" />
         <h1 className="mt-2 text-lg font-semibold sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"> {blog.title} </h1>
         <p className="mt-2 text-gray-600 mb-6 text-sm sm:text-base " > {blog.description} </p>
         <div className="prose min-w-full prose-li:marker:text-black prose-headings:m-0" dangerouslySetInnerHTML={{ __html: blog.content }} />

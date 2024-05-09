@@ -5,7 +5,6 @@ export type blog = {
     title: string,
     description: string,
     content: string,
-    file: File,
 }
 
 export interface CustomRequest extends Request {

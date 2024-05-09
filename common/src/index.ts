@@ -20,17 +20,14 @@ export const createBlogInput = z.object({
     title: z.string(),
     description: z.string(),
     content: z.string(),
-    file: z.instanceof(File)
 })
 
 export type CreateBlogInput = z.infer<typeof createBlogInput>
 
 export const updateBlogInput = z.object({
-    title: z.string(),
-    description: z.string(),
-    content: z.string(),
-    file: z.instanceof(File),
-    id: z.number()
+    title: z.string().optional(),
+    description: z.string().optional(),
+    content: z.string().optional(),
 })
 
 export type UpdateBlogInput = z.infer<typeof updateBlogInput>

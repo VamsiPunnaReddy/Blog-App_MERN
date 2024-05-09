@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import 'dotenv/config'
 
-const databaseUrl: string = String(process.env.MONGODB_URL)
+const databaseUrl = process.env.MONGODB_URL || ""
 
 mongoose.connect(databaseUrl);
 
