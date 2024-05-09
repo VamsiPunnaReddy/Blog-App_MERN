@@ -20,7 +20,7 @@ export function Signin() {
       username,
       password,
     })
-    if (res.ok) {
+    if (res.status == 200) {
       const response = res.data
       localStorage.setItem('token', response.token);
       localStorage.setItem('author', response.username);
