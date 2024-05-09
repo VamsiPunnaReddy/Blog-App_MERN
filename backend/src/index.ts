@@ -13,6 +13,10 @@ app.use(express.json());
 app.use("api/v1/user", userRouter)
 app.use("api/v1/blog", blogRouter)
 
+app.get("/", (req, res) => {
+    res.status(200).json({ hello: "World!" })
+})
+
 app.listen(PORT, (): void => console.log(`Server is running on PORT http://localhost:${PORT}`));
 
 app.all('*', (req, res) => {
