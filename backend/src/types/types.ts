@@ -24,5 +24,5 @@ export interface CustomRequest extends Request {
 }
 
 export interface DecodedToken extends JwtPayload {
-    username: string;
+    username?: string;   
 }

@@ -6,6 +6,10 @@ import axios from "axios"
 export function OneBlog() {
   const [blog, setBlog] = useState({})
   const [isUser, setIsUser] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+
+
 
   const navigate = useNavigate()
 
@@ -14,18 +18,22 @@ export function OneBlog() {
   const username = localStorage.getItem('author')
 
   useEffect(() => {
-    axios.get(BACKEND_URL + "/api/v1/blogs/" + id, {
-      headers: {
-        "Authorization": 'Bearer ' + token,
-      }
-    })
-      .then(async (e) => {
-        const res = e.data
-        if (res.author == username) {
-          setIsUser(true)
+    const fetchData = async () => {
+      const response = await axios.get(BACKEND_URL + "/api/v1/blogs/" + id, {
+        headers: {
+          "Authorization": 'Bearer ' + token,
         }
-        setBlog(res.blog)
       })
+      const res = response.data.blog
+      if (res.author == username) {
+        setIsUser(true)
+      }
+      console.log(res)
+      setBlog(res)
+      setLoading(false)
+    }
+    fetchData()
+
 
   }, [])
 
@@ -41,7 +49,7 @@ export function OneBlog() {
       }
     })
     console.log(res)
-    if (res.ok) {
+    if (res.status) {
       navigate('/')
     }
     else {
@@ -49,17 +57,16 @@ export function OneBlog() {
     }
   }
 
-  if (blog == "") {
+  if (loading) {
     return (
       <div>
-        loading..
+        loading...
       </div>
     )
   }
 
   return (
     <>
-      {console.log("blog:", blog)}
       <div className="container mx-auto px-8 md:px-12 lg:px-16 xl:px-28 py-10">
 
         {isUser ? (
@@ -69,7 +76,9 @@ export function OneBlog() {
           </div>
         ) : <></>}
 
-        <img className=" w-full h-80 object-cover " src={blog.image.url} alt="Blog-Image" />
+        {blog.image?.url && <img className=" w-full h-80 object-cover " src={blog.image.url} alt="Blog-Image" />}
+
+
         <h1 className="mt-2 text-lg font-semibold sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"> {blog.title} </h1>
         <p className="mt-2 text-gray-600 mb-6 text-sm sm:text-base " > {blog.description} </p>
         <div className="prose min-w-full prose-li:marker:text-black prose-headings:m-0" dangerouslySetInnerHTML={{ __html: blog.content }} />

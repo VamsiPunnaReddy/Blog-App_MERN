@@ -18,8 +18,6 @@ export function Signup() {
     data.set('email', email);
     data.set('password', password);
 
-    console.log(fullName, username, email, password)
-
     const res = await axios.post(BACKEND_URL + "/api/v1/user/signup", {
       fullName,
       username,

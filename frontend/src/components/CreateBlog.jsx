@@ -18,20 +18,19 @@ export function CreateBlog() {
         const data = new FormData(e.target);
         const titleValue = data.get("title");
         const descriptionValue = data.get("description");
-        const imageFile = data.get("image");
+        const file = data.get("file");
 
         data.set("title", titleValue);
         data.set("description", descriptionValue);
         data.set("content", content);
-        data.set("image", imageFile);
+        data.set("file", file);
 
-        const res = await axios.post(BACKEND_URL + "/api/v1/blogs/create", {
-            body: data,
+        const res = await axios.post(BACKEND_URL + "/api/v1/blogs/create", data, {
             headers: {
-                Authorization: "Bearer " + token,
-            },
+                'Authorization': `Bearer ${token}`
+            }
         });
-        if (res.ok) {
+        if (res.status == 200) {
             setRedirect(true);
         } else {
             alert("Wrong Credentials");
@@ -89,8 +88,8 @@ export function CreateBlog() {
 
                             <div className="col-span-2">
                                 <input
-                                    id="imageFile"
-                                    name="image"
+                                    id="file"
+                                    name="file"
                                     type="file"
                                     required
                                     className="block w-full ring-1 ring-gray-400 rounded-md text-sm md:text-md text-slate-500

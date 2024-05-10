@@ -16,12 +16,15 @@ export function Signin() {
 
     data.set('username', username);
     data.set('password', password);
+
     const res = await axios.post(BACKEND_URL + "/api/v1/user/signin", {
       username,
       password,
     })
     if (res.status == 200) {
+      console.log("response success")
       const response = res.data
+      console.log(response)
       localStorage.setItem('token', response.token);
       localStorage.setItem('author', response.username);
       setRedirect(true)
@@ -30,9 +33,6 @@ export function Signin() {
       alert('Wrong Credentials')
     }
   }
-
-
-
 
   if (redirect) {
     navigate('/')

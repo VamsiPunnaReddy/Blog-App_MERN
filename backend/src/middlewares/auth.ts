@@ -8,7 +8,7 @@ const jwtSecretKey = process.env.JWT_SECRET || ""
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     try {
-        const token = req.header('Authorization')?.split(' ')[1];
+        const token = req.headers.authorization?.split(' ')[1];
 
         if (!token) {
             console.log("no token")

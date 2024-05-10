@@ -42,6 +42,7 @@ blogRouter.post("/create", authMiddleware, upload.single('file'), async (req: Cu
             },
             author: req.username,
         })
+        return res.status(200).json({ message: "Blog Created Successfully" })
     } catch (e) {
         console.error(e);
         return res.status(500).json({ message: "Internal Server Error" });

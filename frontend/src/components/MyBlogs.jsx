@@ -17,7 +17,7 @@ export function MyBlogs() {
     })
       .then(async (e) => {
         const res = e.data
-        setBlogs(res.userBlogPosts)
+        setBlogs(res.userBlogs)
       })
 
   }, [])
